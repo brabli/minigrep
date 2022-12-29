@@ -22,9 +22,25 @@ impl Config {
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let file_text = fs::read_to_string(&config.file_path)?;
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.file_path);
-    println!("{}", file_text);
-
     Ok(())
+}
+
+fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    Vec::new()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test() {
+        let query = "duct";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
+
+        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+    }
 }
