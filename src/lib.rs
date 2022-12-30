@@ -21,12 +21,23 @@ impl Config {
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let file_text = fs::read_to_string(&config.file_path)?;
+    for line in search(&config.query, &file_text) {
+        println!("{line}");
+    }
 
     Ok(())
 }
 
 fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    Vec::new()
+    let mut matching_lines = Vec::new();
+
+    for line in contents.lines() {
+        if line.contains(query) {
+            matching_lines.push(line);
+        }
+    }
+
+    matching_lines
 }
 
 #[cfg(test)]
@@ -34,7 +45,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
+    fn one_result() {
         let query = "duct";
         let contents = "\
 Rust:
