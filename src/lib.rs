@@ -1,3 +1,9 @@
+//! Minigrep
+//!
+//! It's like `grep` but easier to use!
+//!
+//! Also with none of the functionality other than searching for a word.
+
 use std::env;
 use std::error::Error;
 use std::fs;
@@ -32,6 +38,10 @@ impl Config {
     }
 }
 
+/// Find matches in text
+/// ```
+/// assert_eq!(1, 1);
+/// ```
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let file_text = fs::read_to_string(&config.file_path)?;
 
